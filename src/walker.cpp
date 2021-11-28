@@ -13,8 +13,11 @@ walker::walker(){
 
     dis_thresh = 0.4;
     vel = 0.4;
-    rot = 0.2;
+    rot = 1;
     detected = false;
+
+    velpub = nh.advertise<geometry_msgs::Twist>("/cmd_vel", 10);
+    scansub = nh.subscribe<sensor_msgs::LaserScan>("/scan",100, &walker::LaserCallback,this);
 }
 
 void walker::LaserCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {
@@ -31,8 +34,6 @@ void walker::LaserCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {
 
 
 void walker::navigate(){
-    velpub = nh.advertise<geometry_msgs::Twist>("/cmd_vel", 10);
-    scansub = nh.subscribe<sensor_msgs::LaserScan>("/scan",100, &walker::LaserCallback,this);
     detected = false;
 
     ros::Rate loop_rate(10);
