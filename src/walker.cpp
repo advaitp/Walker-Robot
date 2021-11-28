@@ -12,23 +12,26 @@ walker::walker(){
     move.angular.z = 0;
 
     dis_thresh = 0.4;
-    vel = 1;
+    vel = 0.4;
     rot = 0.2;
     detected = false;
 }
 
 void walker::LaserCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {
     for (auto dist : msg->ranges) {
-      if (dist < dis_thresh && dist > 0.0) {
+      if (dist < dis_thresh) {
         detected = true;
         ROS_INFO_STREAM("Obstacle detected in laser range");
+        return;
         }
       }
+
+      detected = false;
 }
 
 
 void walker::navigate(){
-    velpub = nh.advertise<geometry_msgs::Twist>("/cmd_vel", 1);
+    velpub = nh.advertise<geometry_msgs::Twist>("/cmd_vel", 10);
     scansub = nh.subscribe<sensor_msgs::LaserScan>("/scan",100, &walker::LaserCallback,this);
     detected = false;
 
@@ -58,4 +61,3 @@ void walker::navigate(){
 walker::~walker(){
     velpub.publish(move);
 }
-

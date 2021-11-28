@@ -95,9 +95,6 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 #   ${catkin_LIBRARIES}
 # )
 
-#############
-## Install ##
-#############
 
 # all install targets should use catkin DESTINATION variables
 # See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
@@ -137,18 +134,6 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 #   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 # )
 
-#############
-## Testing ##
-#############
-
-## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_walker_robot.cpp)
-# if(TARGET ${PROJECT_NAME}-test)
-#   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
-# endif()
-
-## Add folders to be run by python nosetests
-# catkin_add_nosetests(test)
 
 add_executable(walker src/main.cpp src/walker.cpp)
 target_link_libraries(walker ${catkin_LIBRARIES})
