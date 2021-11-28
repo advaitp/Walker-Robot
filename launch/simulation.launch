@@ -26,4 +26,9 @@
   	<!-- Walker Node -->
   	<node pkg="walker_robot" type="walker" name="walker_node" respawn="false" output="screen"/>
 
+  	<!-- Creating a record for rosbag -->
+	<arg name = "record" default = "false" />
+  	<arg name="bags_directory" value="$(find beginner_tutorials)/results"/>
+  	<node pkg="rosbag" type="record" name="record" args="record --duration=15 -a -o $(arg bags_directory)/recording.bag -x "/camera/(.*)" if="$(arg record)" />
+
 </launch>

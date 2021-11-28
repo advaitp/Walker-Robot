@@ -18,12 +18,6 @@ walker::walker(){
 }
 
 void walker::LaserCallback(const sensor_msgs::LaserScan::ConstPtr& msg){
-    // Check the laserscan on left, right and straight
-    // if(msg->ranges[0] < dis_thresh || msg->ranges[360] < dis_thresh || msg->ranges[719] < dis_thresh){
-    //     detected = true;
-    //     ROS_INFO_STREAM("Obstacle detected in laser range");
-    // }
-
     for (auto dist : msg->ranges) {
       if (dist < dis_thresh && dist > 0.0) {
         detected = true;
