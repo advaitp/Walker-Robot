@@ -31,6 +31,9 @@
 #include<geometry_msgs/Twist.h>
 #include<walker.hpp>
 
+/**
+ * @brief constructor of walker class
+ */
 walker::walker() {
     move.linear.x = 0;
     move.linear.y = 0;
@@ -51,6 +54,10 @@ walker::walker() {
             ("/scan", 1, &walker::LaserCallback, this);
 }
 
+/**
+ * @brief Function to check if the object is detected by laser scan
+ * @param msg sensor msg sent by the laser
+ */
 void walker::LaserCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {
     if (msg->ranges[0] < dis_t && msg->ranges[29]
                        < dis_t && msg->ranges[329] < dis_t) {
@@ -66,7 +73,9 @@ void walker::LaserCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {
     detected = false;
 }
 
-
+/**
+ * @brief Function to navigate the robot autonmously 
+ */
 void walker::navigate() {
     detected = false;
 
