@@ -16,6 +16,9 @@ class walker{
 	ros::Subscriber scansub;
 	ros::Publisher velpub;
 
-	geometry_msgs::Twist msg;
+	geometry_msgs::Twist move;
+	float dis_thresh;
+	float rot;
+	float vel;
 
-}
+} ;

@@ -7,7 +7,7 @@ project(walker_robot)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs genmsg message_generation tf rostest geometry_msgs sensor_msgs)
+find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs genmsg message_generation tf rostest geometry_msgs sensor_msgs message_generation)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -46,19 +46,6 @@ find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs genmsg message_gen
 #   std_msgs
 # )
 
-################################################
-## Declare ROS dynamic reconfigure parameters ##
-################################################
-
-## To declare and build dynamic reconfigure parameters within this
-## package, follow these steps:
-## * In the file package.xml:
-##   * add a build_depend and a exec_depend tag for "dynamic_reconfigure"
-## * In this file (CMakeLists.txt):
-##   * add "dynamic_reconfigure" to
-##     find_package(catkin REQUIRED COMPONENTS ...)
-##   * uncomment the "generate_dynamic_reconfigure_options" section below
-##     and list every .cfg file to be processed
 
 ## Generate dynamic reconfigure parameters in the 'cfg' folder
 # generate_dynamic_reconfigure_options(
@@ -66,15 +53,7 @@ find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs genmsg message_gen
 #   cfg/DynReconf2.cfg
 # )
 
-###################################
-## catkin specific configuration ##
-###################################
-## The catkin_package macro generates cmake config files for your package
-## Declare things to be passed to dependent projects
-## INCLUDE_DIRS: uncomment this if your package contains header files
-## LIBRARIES: libraries you create in this project that dependent projects also need
-## CATKIN_DEPENDS: catkin_packages dependent projects also need
-## DEPENDS: system dependencies of this project that dependent projects also need
+
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES walker_robot
@@ -82,16 +61,9 @@ catkin_package(
 #  DEPENDS system_lib
 )
 
-###########
-## Build ##
-###########
-
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-include_directories(
-# include
-  ${catkin_INCLUDE_DIRS}
-)
+include_directories(include ${catkin_INCLUDE_DIRS})
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
@@ -178,6 +150,6 @@ include_directories(
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
 
-add_executable(walker src/walker.cpp)
+add_executable(walker src/main.cpp src/walker.cpp)
 target_link_libraries(walker ${catkin_LIBRARIES})
 
