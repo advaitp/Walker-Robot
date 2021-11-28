@@ -11,25 +11,31 @@ walker::walker(){
     move.angular.y = 0;
     move.angular.z = 0;
 
-    dis_thresh = 0.4;
+    dis_thresh = 0.5;
     vel = 0.4;
     rot = 1;
     detected = false;
+    right = false;
+    left = false;
 
     velpub = nh.advertise<geometry_msgs::Twist>("/cmd_vel", 10);
     scansub = nh.subscribe<sensor_msgs::LaserScan>("/scan",100, &walker::LaserCallback,this);
 }
 
 void walker::LaserCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {
-    for (auto dist : msg->ranges) {
-      if (dist < dis_thresh) {
+    if(msg->ranges[0] < dis_thresh || msg->ranges[29] < dis_thresh || msg->ranges[329] < dis_thresh){
         detected = true;
-        ROS_INFO_STREAM("Obstacle detected in laser range");
-        return;
+        if(msg->ranges[0] > msg->ranges[179]){
+            right = true;
         }
-      }
 
-      detected = false;
+        else{
+            left = true;
+        }
+        return;
+    }
+
+    detected = false;
 }
 
 
@@ -39,9 +45,17 @@ void walker::navigate(){
     ros::Rate loop_rate(10);
     while (ros::ok()){
         if(detected){
-            move.linear.x = 0;
-            move.angular.z = rot;
-            ROS_INFO_STREAM("Rotating Robot Obstacle detected");
+            if(left){
+                move.linear.x = 0;
+                move.angular.z = rot;
+                ROS_INFO_STREAM("Rotating Robot Obstacle detected left");
+            }
+            
+            else{
+                move.linear.x = 0;
+                move.angular.z = -rot;
+                ROS_INFO_STREAM("Rotating Robot Obstacle detected right");
+            }
         }
 
         else{

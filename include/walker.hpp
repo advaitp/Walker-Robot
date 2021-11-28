@@ -21,4 +21,7 @@ class walker{
 	float rot;
 	float vel;
 
+	bool right;
+	bool left;
+
 } ;
