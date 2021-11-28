@@ -7,7 +7,7 @@
 	<arg name="z_pos" default="0.0"/>
 
 	<!-- World File -->
-	<arg name="world_file" value="$(find walker_robot)/world/roombaworld.world"/>
+	<arg name="world_file" value="$(find walker_robot)/world/walkerworld.world"/>
 
 	<!-- Launch Gazebo World -->
 	<include file="$(find gazebo_ros)/launch/empty_world.launch">

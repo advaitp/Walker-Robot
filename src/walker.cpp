@@ -11,13 +11,13 @@ walker::walker(){
     move.angular.y = 0;
     move.angular.z = 0;
 
-    dis_thresh = 0.6;
+    dis_thresh = 0.4;
     vel = 1;
-    rot = 0.5;
+    rot = 0.2;
     detected = false;
 }
 
-void walker::LaserCallback(const sensor_msgs::LaserScan::ConstPtr& msg){
+void walker::LaserCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {
     for (auto dist : msg->ranges) {
       if (dist < dis_thresh && dist > 0.0) {
         detected = true;
