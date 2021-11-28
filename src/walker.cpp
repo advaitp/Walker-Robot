@@ -39,21 +39,21 @@ walker::walker() {
     move.angular.y = 0;
     move.angular.z = 0;
 
-    dis_t = 0.5;
-    vel = 0.4;
-    rot = 1;
+    dis_t = 1;
+    vel = 0.2;
+    rot = 1.57;
     detected = false;
     right = false;
     left = false;
 
-    velpub = nh.advertise<geometry_msgs::Twist>("/cmd_vel", 10);
+    velpub = nh.advertise<geometry_msgs::Twist>("/cmd_vel", 1);
     scansub = nh.subscribe<sensor_msgs::LaserScan>
-            ("/scan", 100, &walker::LaserCallback, this);
+            ("/scan", 1, &walker::LaserCallback, this);
 }
 
 void walker::LaserCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {
-    if (msg->ranges[0] >= dis_t && msg->ranges[29]
-                       >= dis_t && msg->ranges[329] >= dis_t) {
+    if (msg->ranges[0] < dis_t && msg->ranges[29]
+                       < dis_t && msg->ranges[329] < dis_t) {
         detected = true;
         if (msg->ranges[0] > msg->ranges[179]) {
             right = true;
